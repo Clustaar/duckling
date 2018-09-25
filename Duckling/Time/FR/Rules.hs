@@ -1915,13 +1915,13 @@ ruleMonths = mkRuleMonths
 
 ruleDaysOfWeek :: [Rule]
 ruleDaysOfWeek = mkRuleDaysOfWeek
-  [ ( "Lundi"    , "lun\\.?(di)?"    )
-  , ( "Mardi"    , "mar\\.?(di)?"    )
-  , ( "Mercredi" , "mer\\.?(credi)?" )
-  , ( "Jeudi"    , "jeu\\.?(di)?"    )
-  , ( "Vendredi" , "ven\\.?(dredi)?" )
-  , ( "Samedi"   , "sam\\.?(edi)?"   )
-  , ( "Dimanche" , "dim\\.?(anche)?" )
+  [ ( "Lundi"    , "lundi"    )
+  , ( "Mardi"    , "mardi"    )
+  , ( "Mercredi" , "mercredi" )
+  , ( "Jeudi"    , "jeudi"    )
+  , ( "Vendredi" , "vendredi" )
+  , ( "Samedi"   , "samedi"   )
+  , ( "Dimanche" , "dimanche" )
   ]
 
 rules :: [Rule]
