@@ -300,22 +300,6 @@ ruleNCycleAvant = Rule
       _ -> Nothing
   }
 
-ruleOrdinalWeekendDeTime :: Rule
-ruleOrdinalWeekendDeTime = Rule
-  { name = "<ordinal> week-end de <time>"
-  , pattern =
-    [ dimension Ordinal
-    , regex "week(\\s|-)?end (d['eu]|en|du mois de)"
-    , Predicate isAMonth
-    ]
-  , prod = \tokens -> case tokens of
-      (token:_:Token Time td:_) -> do
-        n <- getIntValue token
-        td2 <- intersect td weekend
-        tt $ predNth (n - 1) False td2
-      _ -> Nothing
-  }
-
 ruleHourofdayEtQuart :: Rule
 ruleHourofdayEtQuart = Rule
   { name = "<hour-of-day> et quart"
@@ -724,15 +708,6 @@ ruleLeDayofmonthDatetime = Rule
       _ -> Nothing
   }
 
-ruleWeekend :: Rule
-ruleWeekend = Rule
-  { name = "week-end"
-  , pattern =
-    [ regex "week(\\s|-)?end"
-    ]
-  , prod = \_ -> tt weekend
-  }
-
 ruleCedansLeCycle :: Rule
 ruleCedansLeCycle = Rule
   { name = "ce|dans le <cycle>"
@@ -772,19 +747,6 @@ ruleOrdinalCycleDeTime = Rule
       (token:Token TimeGrain grain:_:Token Time td:_) -> do
         n <- getIntValue token
         tt $ cycleNthAfter True grain (n - 1) td
-      _ -> Nothing
-  }
-
-ruleDernierWeekendDeTime :: Rule
-ruleDernierWeekendDeTime = Rule
-  { name = "dernier week-end de <time>"
-  , pattern =
-    [ regex "dernier week(\\s|-)?end (d['eu]|en|du mois de)"
-    , Predicate isAMonth
-    ]
-  , prod = \tokens -> case tokens of
-      (_:Token Time td:_) -> do
-        tt $ predLastOf weekend td
       _ -> Nothing
   }
 
@@ -1246,7 +1208,6 @@ rules =
   , ruleDemain
   , ruleDernierCycleDeTimeLatent
   , ruleDernierDayofweekDeTimeLatent
-  , ruleDernierWeekendDeTime
   , ruleDimTimePartofday
   , ruleDudansLePartofday
   , ruleDurationApresTime
@@ -1287,13 +1248,11 @@ rules =
   , ruleNamedmonthnameddaySuivantdaprs
   , ruleNoel
   , ruleOrdinalCycleDeTime
-  , ruleOrdinalWeekendDeTime
   , rulePartofdayDuDimTime
   , ruleTimeofdayHeures
   , ruleTimeofdayLatent
   , ruleToussaint
   , ruleVersTimeofday
-  , ruleWeekend
   , ruleYear
   , ruleYearLatent
   , ruleYearLatent2
