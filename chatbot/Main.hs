@@ -3,7 +3,6 @@
 import Prelude -- imported by default btw
 import Duckling.Core
 import Control.Monad.IO.Class (liftIO)
--- import System.Environment (getArgs)
 import System.Posix.Env.ByteString (getArgs)
 import Text.Read (readMaybe)
 import Data.Maybe (fromMaybe, mapMaybe)
@@ -14,12 +13,12 @@ import qualified Data.ByteString.Lazy as LBS
 import qualified Data.ByteString.Lazy.Char8 as LBSChar
 import qualified Data.Char as Char
 import qualified Data.Text as Text
-import qualified Data.Text.Encoding as Text
+import qualified Data.Text.Encoding as Unicode
 import qualified Data.HashMap.Strict as HashMap
 
 main :: IO ()
 main = do
-    -- get arguments in [String]
+    -- get arguments in [ByteString]
     args <- getArgs
     -- extract the 3 arguments and use parseHandler:
     -- sentence = string that represent sentence to parse
@@ -41,13 +40,13 @@ parseHandler sentence language dimensions = do
             , locale = makeLocale (parseLang language) Nothing
             }
         options = Options {withLatent = False}
-        -- sentence's type is String, Text.pack :: String -> Text
-        parsedResult = parse (Text.decodeUtf8 sentence) context options (parseDims dimensions)
+        
+        parsedResult = parse (Unicode.decodeUtf8 sentence) context options (parseDims dimensions)
     
     LBSChar.putStrLn (encode parsedResult)
     where
         parseLang :: ByteString -> Lang
-        parseLang l = fromMaybe FR $ readMaybe $ Text.unpack $ Text.toUpper $ Text.decodeUtf8 l
+        parseLang l = fromMaybe FR $ readMaybe $ Text.unpack $ Text.toUpper $ Unicode.decodeUtf8 l
 
         -- map on list to return list of Some Dimensions from list of labels
         -- (fromName return Maybe Some Dimension => mapMaybe instead of map)
