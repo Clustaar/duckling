@@ -1,18 +1,17 @@
 name:                duckling
-version:             0.1.6.1
-synopsis:            A Haskell library for parsing text into structured data.
+version:             0.2.0.0
+synopsis:            A Haskell library for parsing text into structured data (chatbot version).
 description:
   Duckling is a library for parsing text into structured data.
-homepage:            https://github.com/facebook/duckling#readme
-bug-reports:         https://github.com/facebook/duckling/issues
-license:             OtherLicense
+homepage:            https://github.com/Clustaar/duckling
+license:             MIT
 license-files:       LICENSE,PATENTS
-author:              Facebook, Inc.
-maintainer:          duckling-team@fb.com
-copyright:           Copyright (c) 2014-present, Facebook, Inc.
+author:              Clustaar
+maintainer:          dev@clustaar.com
+copyright:           Copyright (c) 2014-present, Clustaar Inc.
 category:            Systems
 build-type:          Simple
-stability:           alpha
+stability:           beta
 cabal-version:       >=1.10
 tested-with:
   GHC==8.0.2,
@@ -968,97 +967,24 @@ test-suite duckling-test
   default-language:    Haskell2010
   default-extensions:  OverloadedStrings
 
-executable duckling-regen-exe
-  main-is:             RegenMain.hs
-  hs-source-dirs:      exe
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wincomplete-patterns
-  other-modules:       Duckling.Ranking.Train
-                     , Duckling.Ranking.Generate
-  build-depends:       duckling
-                     , base
-                     , haskell-src-exts      >= 1.18 && < 1.20
-                     , text
-                     , unordered-containers
-  default-language:    Haskell2010
-  default-extensions:  OverloadedStrings
-
-executable duckling-example-exe
-  main-is:             ExampleMain.hs
-  hs-source-dirs:      exe
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
-  other-modules:       Duckling.Data.TimeZone
-  build-depends:       duckling
-                     , base
-                     , aeson
-                     , bytestring
-                     , directory             >= 1.2.2.0 && < 1.4
-                     , extra
-                     , filepath              >= 1.4.0.0 && < 1.5
-                     , snap-core             >= 1.0.2.0 && < 1.1
-                     , snap-server           >= 1.0.1.1 && < 1.1
-                     , text
-                     , text-show
-                     , time
-                     , timezone-olson        >= 0.1.7 && < 0.2
-                     , timezone-series
-                     , unordered-containers
-  default-language:    Haskell2010
-  default-extensions:  OverloadedStrings
-
-executable custom-dimension-example
-  main-is:             CustomDimensionExample.hs
-  hs-source-dirs:      exe
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
-  build-depends:       duckling
-                     , aeson
-                     , base
-                     , deepseq
-                     , dependent-sum
-                     , hashable
-                     , text
-                     , text-show
-                     , unordered-containers
-  default-language:    Haskell2010
-  default-extensions:  OverloadedStrings
-
-executable duckling-request-sample
-  main-is:             DucklingRequestSample.hs
-  hs-source-dirs:      exe
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
-  other-modules:       Duckling.Data.TimeZone
-  build-depends:       duckling
-                     , base
-                     , dependent-sum
-                     , directory             >= 1.2.2.0 && < 1.4
-                     , extra
-                     , filepath              >= 1.4.0.0 && < 1.5
-                     , text
-                     , time
-                     , timezone-olson        >= 0.1.7 && < 0.2
-                     , timezone-series
-                     , unordered-containers
-  default-language:    Haskell2010
-  default-extensions:  OverloadedStrings
-
-executable duckling-expensive
-  main-is:             DucklingExpensive.hs
-  hs-source-dirs:      exe
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
-  other-modules:       Duckling.Data.TimeZone
-  build-depends:       duckling
-                     , base
-                     , dependent-sum
-                     , directory             >= 1.2.2.0 && < 1.4
-                     , extra
-                     , filepath              >= 1.4.0.0 && < 1.5
-                     , text
-                     , time
-                     , timezone-olson        >= 0.1.7 && < 0.2
-                     , timezone-series
-                     , unordered-containers
-  default-language:    Haskell2010
-  default-extensions:  OverloadedStrings
-
-source-repository head
-  type:     git
-  location: https://github.com/facebook/duckling
+executable chatbot-duckling
+  main-is:             Main.hs
+  hs-source-dirs:      chatbot
+  -- other-modules:       
+  other-extensions:    OverloadedStrings
+  build-depends:         duckling
+                       , base
+                       , transformers
+                       , bytestring
+                       , text
+                       , aeson
+                       , extra
+                       , unordered-containers
+                       , time
+                       , timezone-olson        >= 0.1.7 && < 0.2 
+                       , timezone-series
+                       , directory             >= 1.2.2.0 && < 1.4
+                       , filepath              >= 1.4.0.0 && < 1.5
+                       , unix
+  -- hs-source-dirs:      
+  default-language: Haskell2010
